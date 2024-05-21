@@ -1,8 +1,11 @@
-from pathlib import Path
+import logging
 import shutil
+from pathlib import Path
 
 
-def keep_common_files(dir1, dir2, dir3, destination_directory):
+def keep_common_files(
+    dir1: str, dir2: str, dir3: str, destination_directory: str
+) -> None:
     # Convert string paths to Path objects
     dir1 = Path(dir1)
     dir2 = Path(dir2)
@@ -15,6 +18,7 @@ def keep_common_files(dir1, dir2, dir3, destination_directory):
 
     # Find the common files
     common_keys = set(ids_1.keys()) & set(ids_2.keys()) & set(ids_3.keys())
+    logging.info("Found %s common files", len(common_keys))
 
     destination_directory.mkdir(parents=True, exist_ok=True)
 

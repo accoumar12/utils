@@ -61,9 +61,9 @@ def keep_common_files(
 
 def main() -> None:
     directories = [
-        "/home/maccou/Bureau/stage-maccou/data/airbus/imgs",
-        "/home/maccou/Bureau/stage-maccou/data/airbus/imgs_can",
-        "/home/maccou/Bureau/stage-maccou/data/airbus/stl",
+        "/home/maccou/Bureau/stage-maccou/data/renault/imgs",
+        "/home/maccou/Bureau/stage-maccou/data/renault/imgs_can",
+        "/home/maccou/Bureau/stage-maccou/data/renault/stl",
     ]
 
     destination_directory = "/home/maccou/Bureau/stage-maccou/data/mv"

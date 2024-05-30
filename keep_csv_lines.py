@@ -4,9 +4,10 @@ import itertools
 def read_interval_from_csv(file_path: str, start: int, end: int) -> list:
     with open(file_path, 'r') as f:
         reader = csv.reader(f)
-        header = next(reader)  # get the header
+        header = next(reader)  
+        # We use itertools.islice to skip the first `start - 1` rows
         rows = list(itertools.islice(reader, start - 2, end - 1))  # adjust the indices because we've already read one line
-    return [header] + rows  # return the header and the selected rows
+    return [header] + rows  
 
 def write_rows_to_csv(file_path: str, rows: list) -> None:
     with open(file_path, 'w', newline='') as f:

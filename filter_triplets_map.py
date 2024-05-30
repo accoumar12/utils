@@ -2,7 +2,6 @@ import os
 import pandas as pd
 
 def filter_triplets_map(missing_ids_file: str | os.PathLike, triplets_map_file: str | os.PathLike, output_file: str | os.PathLike) -> None:
-    # Read the missing_ids and triplets_map CSV files into dataframes
     missing_ids = pd.read_csv(missing_ids_file, header=None)
     triplets_map = pd.read_csv(triplets_map_file)
 

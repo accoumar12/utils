@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from gettext import find
 import shutil
 import csv
 from pathlib import Path
@@ -11,6 +12,7 @@ if TYPE_CHECKING:
 def find_common_ids(
     directories: list[str | os.PathLike],
 ) -> set[str]:
+    directories = [Path(dir) for dir in directories]
 
     # Create a list of dictionaries, each containing the file IDs in one directory
     ids_list = [
@@ -61,12 +63,13 @@ def keep_common_files(
 
 def main() -> None:
     directories = [
-        "/home/maccou/Bureau/stage-maccou/data/renault/imgs",
-        "/home/maccou/Bureau/stage-maccou/data/renault/imgs_can",
-        "/home/maccou/Bureau/stage-maccou/data/renault/stl",
+        "/home/maccou/Bureau/stage-maccou/data/airbus/imgs",
+        "/home/maccou/Bureau/stage-maccou/data/airbus/imgs_can",
+        "/home/maccou/Bureau/stage-maccou/data/airbus/stl",
     ]
 
-    destination_directory = "/home/maccou/Bureau/stage-maccou/data/mv"
+    destination_directory = "/home/maccou/Bureau/stage-maccou/data/airbus"
+    # find_common_ids(directories)
     keep_common_files(directories)
 
 

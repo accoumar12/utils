@@ -10,8 +10,8 @@ def modify_csv(file_path: str, export_path: str) -> None:
     df.to_csv(export_path, index=False)
 
 def main() -> None:
-    file_path = '/home/maccou/Bureau/stage-maccou/data/labelizer_data/downloaded_triplets/initial_mv_triplets.csv'
-    export_path = '/home/maccou/Bureau/stage-maccou/data/labelizer_data/downloaded_triplets/initial_mv_triplets_modified.csv'
+    file_path = '/home/maccou/Bureau/stage-maccou/data/labelizer_data/downloaded_labelized_triplets/initial_mv_triplets.csv'
+    export_path = '/home/maccou/Bureau/stage-maccou/data/labelizer_data/downloaded_labelized_triplets/initial_mv_triplets_modified.csv'
     modify_csv(file_path, export_path)
 
 if __name__ == "__main__":

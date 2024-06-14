@@ -29,8 +29,10 @@ def copy_images(
 
 
 def main() -> None:
-    images_dir = Path("/home/maccou/Bureau/stage-maccou/data/airbus/imgs")
-    canonical_images_dir = Path("/home/maccou/Bureau/stage-maccou/data/airbus/imgs_can")
+    images_dir = Path("/home/maccou/Bureau/stage-maccou/data/renault/imgs")
+    canonical_images_dir = Path(
+        "/home/maccou/Bureau/stage-maccou/data/renault/imgs_can",
+    )
     dest_dir = Path("/home/maccou/Bureau/stage-maccou/data/airbus/images")
     copy_images(images_dir, canonical_images_dir, dest_dir)
 

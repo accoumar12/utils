@@ -1,13 +1,12 @@
 from __future__ import annotations
 
-from gettext import find
 import shutil
-import csv
 from pathlib import Path
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     import os
+
 
 def find_common_ids(
     directories: list[str | os.PathLike],
@@ -27,7 +26,10 @@ def find_common_ids(
     common_keys = set.intersection(*[set(ids.keys()) for ids in ids_list])
     print(f"Found {len(common_keys)} common files")
 
-    return common_keys
+    common_files = {key: ids_list[0][key] for key in common_keys}
+
+    return common_keys, common_files
+
 
 def move_common_files(
     directories: list[str | os.PathLike],
@@ -36,24 +38,24 @@ def move_common_files(
     directories = [Path(dir) for dir in directories]
     destination_directory = Path(destination_directory)
 
-    common_keys = find_common_ids(directories)
+    common_keys, common_files = find_common_ids(directories)
 
     # Retrieve in a csv file the missing ids
-    missing_ids = set(common_keys[0].keys()) - common_keys
-    print(f"Found {len(missing_ids)} missing files")
+    # missing_ids = set(common_keys[0].keys()) - common_keys
+    # print(f"Found {len(missing_ids)} missing files")
 
-    with open(destination_directory / "missing_ids.csv", "w") as f:
-        writer = csv.writer(f)
-        for id in missing_ids:
-            writer.writerow([id])
+    # with open(destination_directory / "missing_ids.csv", "w") as f:
+    #     writer = csv.writer(f)
+    #     for id in missing_ids:
+    #         writer.writerow([id])
     destination_directory.mkdir(parents=True, exist_ok=True)
 
     # Copy the common files to the destination directory
-    for key in common_keys:
-        shutil.copy(common_keys[1][key], destination_directory / "stl")
+    for key, file_path in common_files.items():
+        shutil.copy(file_path, destination_directory)
 
-def keep_common_files(
-    directories: list[str | os.PathLike],) -> None:
+
+def keep_common_files(directories: list[str | os.PathLike]) -> None:
     directories = [Path(dir) for dir in directories]
     common_keys = find_common_ids(directories)
     for dir in directories:
@@ -61,17 +63,17 @@ def keep_common_files(
             if file.is_file() and file.name.split(".")[0] not in common_keys:
                 file.unlink()
 
+
 def main() -> None:
     directories = [
-        "/home/maccou/Bureau/stage-maccou/data/airbus/imgs",
-        "/home/maccou/Bureau/stage-maccou/data/airbus/imgs_can",
-        "/home/maccou/Bureau/stage-maccou/data/airbus/stl",
+        "/home/share/deep-mesh/database/airbus/stl_brep_low",
+        "/home/maccou/Bureau/stage-maccou/data/mv/old/stl_old_mesher",
     ]
 
-    destination_directory = "/home/maccou/Bureau/stage-maccou/data/airbus"
+    destination_directory = "/home/maccou/Bureau/stage-maccou/data/mv/stl"
     # find_common_ids(directories)
-    keep_common_files(directories)
-
+    move_common_files(directories, destination_directory)
+    # keep_common_files(directories)
 
 
 if __name__ == "__main__":

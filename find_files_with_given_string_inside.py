@@ -1,8 +1,10 @@
 from __future__ import annotations
 
-import os
+from pathlib import Path
+from typing import TYPE_CHECKING
 
-from Pathlib import Path
+if TYPE_CHECKING:
+    import os
 
 
 def search_folders(
@@ -21,9 +23,9 @@ def search_folders(
 
 
 def main() -> None:
-    root_folder = "/path/to/root/folder"
+    root_folder = "/home/maccou/Bureau/stage-maccou/models/triplet_loss_training"
     file_name = "log.log"
-    target_string = "HardSemiHardTripletMarginWithDistanceLoss"
+    target_string = "triplet_loss = SemiHardTripletMarginWithDistanceLoss("
     matching_folders = search_folders(root_folder, file_name, target_string)
 
     for folder in matching_folders:

@@ -24,6 +24,14 @@ def keep_csv_columns(file_path: str, kept_columns: list) -> list:
     return [new_header, *rows]  # Return new_header instead of header
 
 
+def keep_csv_lines_by_index(file_path: str, indices: list) -> list:
+    with Path(file_path).open() as f:
+        reader = csv.reader(f)
+        header = next(reader)
+        rows = [row for i, row in enumerate(reader) if i in indices]
+    return [header, *rows]
+
+
 def write_rows_to_csv(file_path: str, rows: list) -> None:
     with Path(file_path).open("w", newline="") as f:
         writer = csv.writer(f)
@@ -31,20 +39,38 @@ def write_rows_to_csv(file_path: str, rows: list) -> None:
 
 
 def main() -> None:
-    input_file_path = "/home/maccou/Bureau/stage-maccou/data/mv_custom_2/triplets.csv"
-    output_file_path = (
-        "/home/maccou/Bureau/stage-maccou/data/mv_custom_2/triplets_new.csv"
-    )
+    input_file_path = "/home/maccou/stage_maccou/deep_mesh/models/find_triplets/20240703-0934/20240703-0934_results_labelizer_data_0.001_0.06_0.5_0.1.csv"
+    output_file_path = "/home/maccou/stage_maccou/deep_mesh/models/find_triplets/20240703-0934/filtered_results.csv"
     start = 4000
     end = 7000
 
     # Keep only the columns "anchor" and "negative"
-    kept_columns = ["anchor", "negative"]
-    columns = keep_csv_columns(input_file_path, kept_columns)
-    write_rows_to_csv(output_file_path, columns)
 
     # interval_rows = keep_csv_lines_interval(input_file_path, start, end)
-    # write_rows_to_csv(output_file_path, interval_rows)
+    kept_indices = [
+        19,
+        34,
+        71,
+        76,
+        87,
+        163,
+        166,
+        179,
+        261,
+        310,
+        353,
+        474,
+        493,
+        572,
+        609,
+        643,
+        754,
+        783,
+        880,
+    ]
+    rows = keep_csv_lines_by_index(input_file_path, kept_indices)
+
+    write_rows_to_csv(output_file_path, rows)
 
 
 if __name__ == "__main__":

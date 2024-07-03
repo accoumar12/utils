@@ -29,11 +29,15 @@ def copy_images(
 
 
 def main() -> None:
-    images_dir = Path("/home/maccou/Bureau/stage-maccou/data/renault/imgs")
-    canonical_images_dir = Path(
-        "/home/maccou/Bureau/stage-maccou/data/renault/imgs_can",
+    images_dir = Path(
+        "/home/maccou/stage_maccou/deep_mesh/data/renault_ca_components/images",
     )
-    dest_dir = Path("/home/maccou/Bureau/stage-maccou/data/airbus/images")
+    canonical_images_dir = Path(
+        "/home/maccou/stage_maccou/deep_mesh/data/renault_ca_components/images_canonical",
+    )
+    dest_dir = Path(
+        "/home/maccou/stage_maccou/deep_mesh/data/renault_ca_components/all_images",
+    )
     copy_images(images_dir, canonical_images_dir, dest_dir)
 
 

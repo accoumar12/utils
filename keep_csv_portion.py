@@ -38,6 +38,16 @@ def write_rows_to_csv(file_path: str, rows: list) -> None:
         writer.writerows(rows)
 
 
+# Function that takes a csv file, a list of indices and put the rows at the given indices at the top of the file, and the remaining rows at the bottom
+def put_rows_at_top(file_path: str, indices: list) -> list:
+    with Path(file_path).open() as f:
+        reader = csv.reader(f)
+        header = next(reader)
+        rows = [row for i, row in enumerate(reader) if i in indices]
+        remaining_rows = [row for i, row in enumerate(reader) if i not in indices]
+    return [header, *rows, *remaining_rows]
+
+
 def main() -> None:
     input_file_path = "/home/maccou/stage_maccou/deep_mesh/models/find_triplets/20240703-0934/20240703-0934_results_labelizer_data_0.001_0.06_0.5_0.1.csv"
     output_file_path = "/home/maccou/stage_maccou/deep_mesh/models/find_triplets/20240703-0934/filtered_results.csv"
@@ -48,27 +58,18 @@ def main() -> None:
 
     # interval_rows = keep_csv_lines_interval(input_file_path, start, end)
     kept_indices = [
-        19,
         34,
-        71,
-        76,
-        87,
         163,
         166,
         179,
         261,
         310,
         353,
-        474,
         493,
-        572,
         609,
-        643,
-        754,
-        783,
         880,
     ]
-    rows = keep_csv_lines_by_index(input_file_path, kept_indices)
+    rows = put_rows_at_top(input_file_path, kept_indices)
 
     write_rows_to_csv(output_file_path, rows)
 

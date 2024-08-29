@@ -43,8 +43,9 @@ def put_rows_at_top(file_path: str, indices: list) -> list:
     with Path(file_path).open() as f:
         reader = csv.reader(f)
         header = next(reader)
-        rows = [row for i, row in enumerate(reader) if i in indices]
-        remaining_rows = [row for i, row in enumerate(reader) if i not in indices]
+        all_rows = list(reader)  # Read all rows into memory
+        rows = [row for i, row in enumerate(all_rows) if i in indices]
+        remaining_rows = [row for i, row in enumerate(all_rows) if i not in indices]
     return [header, *rows, *remaining_rows]
 
 
